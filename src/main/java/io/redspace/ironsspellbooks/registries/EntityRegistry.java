@@ -57,6 +57,7 @@ import io.redspace.ironsspellbooks.entity.spells.poison_cloud.PoisonSplash;
 import io.redspace.ironsspellbooks.entity.spells.portal.PortalEntity;
 import io.redspace.ironsspellbooks.entity.spells.ray_of_frost.RayOfFrostVisualEntity;
 import io.redspace.ironsspellbooks.entity.spells.root.RootEntity;
+import io.redspace.ironsspellbooks.entity.spells.scapegoat.ScapegoatEntity;
 import io.redspace.ironsspellbooks.entity.spells.shield.ShieldEntity;
 import io.redspace.ironsspellbooks.entity.spells.small_magic_arrow.SmallMagicArrow;
 import io.redspace.ironsspellbooks.entity.spells.snowball.FrostField;
@@ -617,5 +618,11 @@ public class EntityRegistry {
                     .sized(0.5f, 0.5f)
                     .clientTrackingRange(64)
                     .build(ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, "spear").toString()));
+
+    public static final DeferredHolder<EntityType<?>, EntityType<ScapegoatEntity>> SCAPEGOAT =
+            ENTITIES.register("scapegoat", () -> EntityType.Builder.<ScapegoatEntity>of(ScapegoatEntity::new, MobCategory.MISC)
+                    .sized(0.75f, 0.75f)
+                    .clientTrackingRange(64)
+                    .build(ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, "scapegoat").toString()));
 }
 

@@ -114,6 +114,7 @@ public class CommonSetup {
         event.put(EntityRegistry.SUMMONED_CLAYMORE.get(), SummonedClaymoreEntity.prepareAttributes().build());
         event.put(EntityRegistry.SUMMONED_RAPIER.get(), SummonedRapierEntity.prepareAttributes().build());
         event.put(EntityRegistry.ICE_SPIDER.get(), IceSpiderEntity.prepareAttributes().build());
+        event.put(EntityRegistry.SCAPEGOAT.get(), IceSpiderEntity.prepareAttributes().build());
     }
 
     @SubscribeEvent

@@ -4,7 +4,6 @@ import io.redspace.ironsspellbooks.IronsSpellbooks;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.AbstractSpellCastingMob;
 import io.redspace.ironsspellbooks.entity.mobs.abstract_spell_casting_mob.TransformStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -14,7 +13,6 @@ import org.joml.Quaternionf;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import software.bernie.geckolib.animatable.GeoReplacedEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.constant.dataticket.DataTicket;
@@ -34,7 +32,6 @@ public class IceSpiderModel extends DefaultedEntityGeoModel<IceSpiderEntity> {
         super(IronsSpellbooks.id("spellcastingmob"));
     }
 
-    protected TransformStack transformStack = new TransformStack();
 
     public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, "textures/entity/ice_spider/ice_spider.png");
     public static final ResourceLocation MODEL = ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, "geo/ice_spider.geo.json");
@@ -57,6 +54,7 @@ public class IceSpiderModel extends DefaultedEntityGeoModel<IceSpiderEntity> {
     }
 
     private long lastRenderedInstance = -1;
+    protected TransformStack transformStack = new TransformStack();
 
     @Override
     public void handleAnimations(IceSpiderEntity entity, long instanceId, AnimationState<IceSpiderEntity> animationState, float partialTick) {
@@ -67,13 +65,6 @@ public class IceSpiderModel extends DefaultedEntityGeoModel<IceSpiderEntity> {
         if (isReRender && instanceId == this.lastRenderedInstance)
             return;
         this.lastRenderedInstance = instanceId;
-
-//        TransformStack transformStack = manager.getData(STACK_TICKET);
-//        if (transformStack == null) {
-//            transformStack = new TransformStack();
-//            manager.setData(STACK_TICKET, transformStack);
-//        }
-//        animationState.setData(STACK_TICKET, transformStack);
         transformStack.resetDirty();
         super.handleAnimations(entity, instanceId, animationState, partialTick);
         transformStack.popStack();
@@ -82,8 +73,6 @@ public class IceSpiderModel extends DefaultedEntityGeoModel<IceSpiderEntity> {
     @Override
     public void setCustomAnimations(IceSpiderEntity entity, long instanceId, AnimationState<IceSpiderEntity> animationState) {
         super.setCustomAnimations(entity, instanceId, animationState);
-//        TransformStack transformStack = animationState.getData(STACK_TICKET);
-//        assert transformStack != null;
         var partialTick = animationState.getPartialTick();
         transformStack.pushPosition(getAnimationProcessor().getBone("torso"),
                 (float) IceSpiderEntity.TORSO_OFFSET.x,

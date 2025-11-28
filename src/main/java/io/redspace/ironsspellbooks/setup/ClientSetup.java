@@ -61,6 +61,7 @@ import io.redspace.ironsspellbooks.entity.spells.poison_arrow.PoisonArrowRendere
 import io.redspace.ironsspellbooks.entity.spells.portal.PortalRenderer;
 import io.redspace.ironsspellbooks.entity.spells.ray_of_frost.RayOfFrostRenderer;
 import io.redspace.ironsspellbooks.entity.spells.root.RootRenderer;
+import io.redspace.ironsspellbooks.entity.spells.scapegoat.ScapegoatRenderer;
 import io.redspace.ironsspellbooks.entity.spells.shield.ShieldModel;
 import io.redspace.ironsspellbooks.entity.spells.shield.ShieldRenderer;
 import io.redspace.ironsspellbooks.entity.spells.shield.ShieldTrimModel;
@@ -347,6 +348,7 @@ public class ClientSetup {
         event.registerEntityRenderer(EntityRegistry.SNOWBALL.get(), SnowballRenderer::new);
         event.registerEntityRenderer(EntityRegistry.THROWN_SPEAR.get(), ThrownSpearRenderer::new);
         event.registerEntityRenderer(EntityRegistry.THROWN_ITEM.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.SCAPEGOAT.get(), ScapegoatRenderer::new);
 
         event.registerBlockEntityRenderer(BlockRegistry.SCROLL_FORGE_TILE.get(), ScrollForgeRenderer::new);
         event.registerBlockEntityRenderer(BlockRegistry.PEDESTAL_TILE.get(), PedestalRenderer::new);
