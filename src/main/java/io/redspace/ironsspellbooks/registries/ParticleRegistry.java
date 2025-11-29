@@ -117,6 +117,8 @@ public class ParticleRegistry {
         public StreamCodec<? super RegistryFriendlyByteBuf, TraceParticleOptions> streamCodec() {
             return TraceParticleOptions.STREAM_CODEC;
         }
+
     });
+    public static final Supplier<SimpleParticleType> FALLING_SPARKLE_PARTICLE = PARTICLE_TYPES.register("falling_sparkle", () -> new SimpleParticleType(true));
 
 }

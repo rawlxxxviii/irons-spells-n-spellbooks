@@ -847,6 +847,15 @@ public class Utils {
         return itemStack;
     }
 
+    public static Predicate<Entity> tauntPredicate(Entity taunter) {
+        return entity -> entity instanceof Enemy ^ taunter instanceof Enemy && !taunter.isAlliedTo(entity);
+    }
+
+    public static void performTaunt(Entity taunter, LivingEntity newTarget, float range) {
+        Predicate<Entity> predicate = mob -> newTarget instanceof Enemy ^ mob instanceof Enemy;
+        performTaunt(newTarget, 10, predicate);
+    }
+
     public static void performTaunt(LivingEntity newTarget, float range, Predicate<Entity> selector) {
         performTaunt(newTarget, newTarget.level.getEntities(newTarget, newTarget.getBoundingBox().inflate(range, range, range),
                 entity -> entity.distanceToSqr(newTarget) < range * range && selector.test(entity)));

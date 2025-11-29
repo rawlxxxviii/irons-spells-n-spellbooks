@@ -1,7 +1,10 @@
 package io.redspace.ironsspellbooks.entity.spells.scapegoat;
 
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.entity.mobs.AntiMagicSusceptible;
+import io.redspace.ironsspellbooks.registries.EntityRegistry;
+import io.redspace.ironsspellbooks.registries.ParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -10,7 +13,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -66,6 +72,10 @@ public class ScapegoatEntity extends PathfinderMob implements AntiMagicSusceptib
         super(entityType, level);
     }
 
+    public ScapegoatEntity(Level level) {
+        this(EntityRegistry.SCAPEGOAT.get(), level);
+    }
+
     public void setTargetPos(BlockPos targetPos) {
         this.targetPos = targetPos;
     }
@@ -109,15 +119,40 @@ public class ScapegoatEntity extends PathfinderMob implements AntiMagicSusceptib
     }
 
     @Override
+    public boolean hurt(DamageSource source, float amount) {
+        if (super.hurt(source, amount)) {
+            if (level instanceof ServerLevel serverLevel) {
+                poofParticles(10, 0.4f);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void poof() {
+        if (level instanceof ServerLevel serverLevel) {
+            poofParticles(30, 1f);
+            discard();
+        }
+    }
+
+    public void poofParticles(int amount, float strength) {
+        Vec3 pos = this.getBoundingBox().getCenter();
+        MagicManager.spawnParticles(level, ParticleRegistry.FALLING_SPARKLE_PARTICLE.get(), pos.x, pos.y + 0.5, pos.z, amount, .1, .1, .1, .3 * strength, false);
+    }
+
+    @Override
     public void onAntiMagic(MagicData playerMagicData) {
-        //todo: poof
-        // custom sparkly particles would be funny
+        poof();
     }
 
     @Override
     public void die(DamageSource damageSource) {
-        //todo: poof
+        // preserve event firing with super call
         super.die(damageSource);
+        if (dead) {
+            poof();
+        }
     }
 
     @Override
@@ -139,6 +174,16 @@ public class ScapegoatEntity extends PathfinderMob implements AntiMagicSusceptib
             this.cachedOwner = null;
         }
         NbtUtils.readBlockPos(compound, "scapegoat_target").ifPresent(p_325838_ -> this.targetPos = p_325838_);
+    }
+
+    public static AttributeSupplier.Builder prepareAttributes() {
+        return LivingEntity.createLivingAttributes()
+                .add(Attributes.MAX_HEALTH, 1)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.6)
+                .add(Attributes.FOLLOW_RANGE, 32)
+                .add(Attributes.ENTITY_INTERACTION_RANGE, 4)
+                .add(Attributes.STEP_HEIGHT, 1)
+                .add(Attributes.MOVEMENT_SPEED, .35);
     }
 
     /*

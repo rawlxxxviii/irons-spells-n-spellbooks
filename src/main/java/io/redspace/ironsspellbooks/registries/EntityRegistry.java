@@ -621,7 +621,7 @@ public class EntityRegistry {
 
     public static final DeferredHolder<EntityType<?>, EntityType<ScapegoatEntity>> SCAPEGOAT =
             ENTITIES.register("scapegoat", () -> EntityType.Builder.<ScapegoatEntity>of(ScapegoatEntity::new, MobCategory.MISC)
-                    .sized(0.75f, 0.75f)
+                    .sized(0.9F, 1.3F)
                     .clientTrackingRange(64)
                     .build(ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, "scapegoat").toString()));
 }

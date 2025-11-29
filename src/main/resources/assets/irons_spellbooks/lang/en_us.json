@@ -389,6 +389,7 @@
   "ui.irons_spellbooks.strength": "%d Strength",
   "ui.irons_spellbooks.max_victims": "%d Max Targets",
   "ui.irons_spellbooks.distance": "%d Block Range",
+  "ui.irons_spellbooks.taunt_range": "%d Taunt Range",
   "ui.irons_spellbooks.cast_range": "%d Cast Range",
   "ui.irons_spellbooks.portal_duration": "%d Portal Duration",
   "ui.irons_spellbooks.freeze_time": "%s Freeze Time",
