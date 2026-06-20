@@ -242,7 +242,9 @@ public class PortalEntity extends Entity implements AntiMagicSusceptible {
     @Override
     protected void addAdditionalSaveData(CompoundTag compoundTag) {
         compoundTag.putLong("ticksToLive", ticksToLive);
-        compoundTag.putUUID("ownerUUID", getOwnerUUID());
+        if (getOwnerUUID() != null) {
+            compoundTag.putUUID("ownerUUID", getOwnerUUID());
+        }
     }
 
     public class LoopTrackerData {
