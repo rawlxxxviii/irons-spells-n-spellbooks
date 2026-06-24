@@ -398,6 +398,10 @@
   "key.irons_spellbooks.spell_quick_cast_13": "Quick Cast Slot 13",
   "key.irons_spellbooks.spell_quick_cast_14": "Quick Cast Slot 14",
   "key.irons_spellbooks.spell_quick_cast_15": "Quick Cast Slot 15",
+  "key.irons_spellbooks.modifier.shift": "Shift",
+  "key.irons_spellbooks.modifier.control": "Ctrl",
+  "key.irons_spellbooks.modifier.alt": "Alt",
+  "key.irons_spellbooks.quick_cast.unbound": "...",
 
   "spell.irons_spellbooks.none": "None",
   "spell.irons_spellbooks.fireball": "Fireball",

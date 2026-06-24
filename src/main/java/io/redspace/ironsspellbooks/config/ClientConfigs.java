@@ -29,6 +29,12 @@ public class ClientConfigs {
     public static final ForgeConfigSpec.ConfigValue<Integer> RECAST_Y_OFFSET;
     public static final ForgeConfigSpec.ConfigValue<Integer> RECAST_X_OFFSET;
 
+
+    public static final ForgeConfigSpec.ConfigValue<Boolean> ENABLE_QUICK_CAST_KEYBINDING_LABELS;
+    public static final ForgeConfigSpec.ConfigValue<Boolean> DRAW_BACKGROUND_FOR_QUICK_CAST_KEYBINDING_LABELS;
+    public static final ForgeConfigSpec.ConfigValue<Double> QUICK_CAST_KEYBINDING_LABEL_SCALE;
+    public static final ForgeConfigSpec.ConfigValue<Double> QUICK_CAST_KEYBINDING_MODIFIER_LABEL_SCALE;
+
     public static final ForgeConfigSpec SPEC;
 
     static {
@@ -90,6 +96,17 @@ public class ClientConfigs {
 
         BUILDER.push("Music");
         ENABLE_BOSS_MUSIC = BUILDER.define("enableBossMusic", true);
+        BUILDER.pop();
+
+        BUILDER.push("Quick cast keybinding labels");
+        BUILDER.comment("When enabled the keybinding for each spell is shown in the quick cast overlay.");
+        ENABLE_QUICK_CAST_KEYBINDING_LABELS = BUILDER.define("enableQuickCastKeybindingLabels", false);
+        BUILDER.comment("Draws a black background behind the text for better readability.");
+        DRAW_BACKGROUND_FOR_QUICK_CAST_KEYBINDING_LABELS = BUILDER.define("drawBackgroundForQuickCastKeybindingLabels", false);
+        BUILDER.comment("The scale of the text. 1 is default minecraft font size.");
+        QUICK_CAST_KEYBINDING_LABEL_SCALE = BUILDER.defineInRange("quickCastKeybindingLabelScale", .6d,0.1d,2.0d);
+        BUILDER.comment("The scale of the modifier(shift/control/alt) text. This value is used as a fraction of the quickCastKeybindingLabelScale.");
+        QUICK_CAST_KEYBINDING_MODIFIER_LABEL_SCALE = BUILDER.defineInRange("quickCastKeybindingModifierLabelScale", .7d,0.1d,2.0d);
         BUILDER.pop();
 
         SPEC = BUILDER.build();
