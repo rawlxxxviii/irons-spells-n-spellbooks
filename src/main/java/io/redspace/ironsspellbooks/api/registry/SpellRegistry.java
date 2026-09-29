@@ -29,7 +29,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class SpellRegistry {
-    public static final ResourceKey<Registry<AbstractSpell>> SPELL_REGISTRY_KEY = ResourceKey.createRegistryKey(new ResourceLocation(IronsSpellbooks.MODID, "spells"));
+    public static final ResourceKey<Registry<AbstractSpell>> SPELL_REGISTRY_KEY = ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, "spells"));
     private static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(SPELL_REGISTRY_KEY, IronsSpellbooks.MODID);
     public static final Supplier<IForgeRegistry<AbstractSpell>> REGISTRY = SPELLS.makeRegistry(() -> new RegistryBuilder<AbstractSpell>().disableSaving().disableOverrides());
     private static final NoneSpell noneSpell = new NoneSpell();
@@ -47,7 +47,7 @@ public class SpellRegistry {
     }
 
     public static AbstractSpell getSpell(String spellId) {
-        return getSpell(new ResourceLocation(spellId));
+        return getSpell(ResourceLocation.parse(spellId));
     }
 
     public static List<AbstractSpell> getEnabledSpells() {
@@ -144,10 +144,11 @@ public class SpellRegistry {
     public static final RegistryObject<AbstractSpell> GUIDING_BOLT_SPELL = registerSpell(new GuidingBoltSpell());
     public static final RegistryObject<AbstractSpell> HEALING_CIRCLE_SPELL = registerSpell(new HealingCircleSpell());
     public static final RegistryObject<AbstractSpell> HEAL_SPELL = registerSpell(new HealSpell());
-    //public static final RegistryObject<AbstractSpell> SUNBEAM_SPELL = registerSpell(new SunbeamSpell());
+    public static final RegistryObject<AbstractSpell> SUNBEAM_SPELL = registerSpell(new SunbeamSpell());
     public static final RegistryObject<AbstractSpell> WISP_SPELL = registerSpell(new WispSpell());
     public static final RegistryObject<AbstractSpell> DIVINE_SMITE_SPELL = registerSpell(new DivineSmiteSpell());
     public static final RegistryObject<AbstractSpell> HASTE_SPELL = registerSpell(new HasteSpell());
+    public static final RegistryObject<AbstractSpell> CLEANSE_SPELL = registerSpell(new CleanseSpell());
 
     // ICE
     public static final RegistryObject<AbstractSpell> CONE_OF_COLD_SPELL = registerSpell(new ConeOfColdSpell());

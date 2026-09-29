@@ -5,7 +5,7 @@ import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import net.minecraft.resources.ResourceLocation;
 
 public class SpellAnimations {
-    public static ResourceLocation ANIMATION_RESOURCE = new ResourceLocation(IronsSpellbooks.MODID, "animation");
+    public static ResourceLocation ANIMATION_RESOURCE = ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, "animation");
 
     public static final AnimationHolder ANIMATION_INSTANT_CAST = new AnimationHolder("instant_projectile", true);
     public static final AnimationHolder ANIMATION_CONTINUOUS_CAST = new AnimationHolder("continuous_thrust", false);
@@ -28,4 +28,7 @@ public class SpellAnimations {
     public static final AnimationHolder STOMP = new AnimationHolder("stomp", true, true);
     public static final AnimationHolder PREPARE_CROSS_ARMS = new AnimationHolder("cross_arms", false);
     public static final AnimationHolder CAST_T_POSE = new AnimationHolder("cast_t_pose", true);
+    public static final AnimationHolder CAST_KNEELING_PRAYER = new AnimationHolder("kneeling_prayer", false);
+    public static final AnimationHolder SELF_CAST_TWO_HANDS = new AnimationHolder("self_cast_two_hands", true);
+    public static final AnimationHolder ANIMATION_CONTINUOUS_CAST_ONE_HANDED = new AnimationHolder("continuous_thrust_one_handed", false);
 }

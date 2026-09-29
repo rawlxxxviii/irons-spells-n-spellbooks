@@ -61,6 +61,7 @@ import io.redspace.ironsspellbooks.entity.spells.shield.ShieldRenderer;
 import io.redspace.ironsspellbooks.entity.spells.shield.ShieldTrimModel;
 import io.redspace.ironsspellbooks.entity.spells.small_magic_arrow.SmallMagicArrowRenderer;
 import io.redspace.ironsspellbooks.entity.spells.spectral_hammer.SpectralHammerRenderer;
+import io.redspace.ironsspellbooks.entity.spells.sunbeam.SunbeamRenderer;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetAreaRenderer;
 import io.redspace.ironsspellbooks.entity.spells.void_tentacle.VoidTentacleRenderer;
 import io.redspace.ironsspellbooks.entity.spells.wisp.WispRenderer;
@@ -237,7 +238,7 @@ public class ClientSetup {
         event.registerEntityRenderer(EntityRegistry.ICE_BLOCK_PROJECTILE.get(), IceBlockRenderer::new);
         event.registerEntityRenderer(EntityRegistry.CRYOMANCER.get(), CryomancerRenderer::new);
         event.registerEntityRenderer(EntityRegistry.POISON_CLOUD.get(), NoopRenderer::new);
-        event.registerEntityRenderer(EntityRegistry.SUNBEAM.get(), NoopRenderer::new);
+        event.registerEntityRenderer(EntityRegistry.SUNBEAM.get(), SunbeamRenderer::new);
         event.registerEntityRenderer(EntityRegistry.DRAGON_BREATH_POOL.get(), NoopRenderer::new);
         event.registerEntityRenderer(EntityRegistry.POISON_ARROW.get(), PoisonArrowRenderer::new);
         event.registerEntityRenderer(EntityRegistry.POISON_SPLASH.get(), NoopRenderer::new);
@@ -302,7 +303,7 @@ public class ClientSetup {
     public static void clientSetup(final FMLClientSetupEvent e) {
         //Item Properties
         e.enqueueWork(() -> {
-            ItemProperties.register(ItemRegistry.WAYWARD_COMPASS.get(), new ResourceLocation("angle"),
+            ItemProperties.register(ItemRegistry.WAYWARD_COMPASS.get(), ResourceLocation.withDefaultNamespace("angle"),
                     new CompassItemPropertyFunction((level, itemStack, entity) -> WaywardCompass.getCatacombsLocation(entity, itemStack.getOrCreateTag())));
             MinecraftInstanceHelper.instance = new IMinecraftInstanceHelper() {
                 @Nullable
@@ -311,10 +312,10 @@ public class ClientSetup {
                     return Minecraft.getInstance().player;
                 }
             };
-            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), new ResourceLocation("pull"), (itemStack, clientLevel, livingEntity, i) -> CrossbowItem.isCharged(itemStack) ? 0.0F : AutoloaderCrossbow.getLoadingTicks(itemStack) / (float) AutoloaderCrossbow.getChargeDuration(itemStack));
-            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), new ResourceLocation("pulling"), (itemStack, clientLevel, livingEntity, i) -> AutoloaderCrossbow.isLoading(itemStack) && !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
-            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), new ResourceLocation("charged"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
-            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), new ResourceLocation("firework"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && CrossbowItem.isCharged(itemStack) && CrossbowItem.containsChargedProjectile(itemStack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
+            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), ResourceLocation.withDefaultNamespace("pull"), (itemStack, clientLevel, livingEntity, i) -> CrossbowItem.isCharged(itemStack) ? 0.0F : AutoloaderCrossbow.getLoadingTicks(itemStack) / (float) AutoloaderCrossbow.getChargeDuration(itemStack));
+            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), ResourceLocation.withDefaultNamespace("pulling"), (itemStack, clientLevel, livingEntity, i) -> AutoloaderCrossbow.isLoading(itemStack) && !CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
+            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), ResourceLocation.withDefaultNamespace("charged"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && CrossbowItem.isCharged(itemStack) ? 1.0F : 0.0F);
+            ItemProperties.register(ItemRegistry.AUTOLOADER_CROSSBOW.get(), ResourceLocation.withDefaultNamespace("firework"), (itemStack, clientLevel, livingEntity, i) -> livingEntity != null && CrossbowItem.isCharged(itemStack) && CrossbowItem.containsChargedProjectile(itemStack, Items.FIREWORK_ROCKET) ? 1.0F : 0.0F);
             FogRenderer.MOB_EFFECT_FOG.add(new PlanarSightEffect.EcholocationBlindnessFogFunction());
             ItemRegistry.getIronsItems().stream().filter(item -> item.get() instanceof SpellBook).forEach((item) -> CuriosRendererRegistry.register(item.get(), SpellBookCurioRenderer::new));
         });
